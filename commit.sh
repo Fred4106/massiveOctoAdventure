@@ -1,5 +1,5 @@
 git add --all
-git commit --message "Committed on $date"
+git commit --message "Committed on $(date)"
 git push
 
 sleep 5
