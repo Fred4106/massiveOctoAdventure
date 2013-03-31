@@ -35,6 +35,7 @@ public class BlockPhaser extends Block{
 			for(int a = 0; a < rotationTable.length; a++) {
 				if(meta == rotationTable[a]) {
 					world.setBlockMetadataWithNotify(x, y, z, rotationTable[(a+1)%rotationTable.length], 0x04);
+					System.out.println(meta);
 					break;
 				}
 			}
@@ -47,7 +48,7 @@ public class BlockPhaser extends Block{
 	
 	@Override
 	public Icon getBlockTextureFromSideAndMetadata(int side, int meta) {
-		if(side == 1) {
+		if(side == meta) {
 			return frontTexture;
 		} else {
 			return otherTexture;
