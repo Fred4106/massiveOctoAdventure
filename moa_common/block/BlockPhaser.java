@@ -4,16 +4,18 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import massiveOctoAdventure.items.ItemScrewdriver;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Icon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
 
-public class BlockPhaser extends Block{
+public class BlockPhaser extends BlockContainer{
 	@SideOnly(Side.CLIENT)
 	private Icon frontTexture;
 	@SideOnly(Side.CLIENT)
@@ -26,6 +28,10 @@ public class BlockPhaser extends Block{
 		setCreativeTab(CreativeTabs.tabRedstone);
 		setHardness(1F);
 		setResistance(1F);
+	}
+	
+	public void onBlockAdded(World world, int x, int y, int z) {
+		world.setBlockMetadataWithNotify(x, y, z, rotationTable[0], 0x04);
 	}
 	
 	@Override
@@ -60,6 +66,11 @@ public class BlockPhaser extends Block{
 	public void registerIcons(IconRegister register) {
 		frontTexture = register.registerIcon("massiveoctoadventure:phaserFront");
 		otherTexture = register.registerIcon("massiveoctoadventure:phaserSide");
+	}
+
+	@Override
+	public TileEntity createNewTileEntity(World world) {
+		return null;
 	}
 	
 }
