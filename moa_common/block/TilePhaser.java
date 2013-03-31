@@ -12,11 +12,23 @@ public class TilePhaser extends TileEntity{
 		return hasPlan;
 	}
 	
-	public void placePlan() {
+	public void ScanPlan() {
 		int meta = worldObj.getBlockMetadata(xCoord, yCoord, zCoord);
-		for(int x = this.xCoord-cubeSize; x < this.xCoord+cubeSize; x++) {
-			
+		for(int x = this.xCoord-cubeSize; x <= this.xCoord+cubeSize; x++) {
+			for(int z = this.zCoord-cubeSize; z <= this.zCoord+cubeSize; z++) {
+				for(int y = this.yCoord-cubeSize; y <= this.yCoord+cubeSize; y++) {
+					storage[] = new utilBlockInfo(x, y, z, worldObj.getBlockId(x, y, z), worldObj.getBlockMetadata(x, y, z));
+				}
+			}
 		}
+	}
+	
+	public void placePlan() {
+		for(int a = 0; a < storage.length; a++) {
+			this.worldObj.setBlock(storage[a].x, storage[a].y, storage[a].z, storage[a].id, storage[a].meta, 0x02);
+			this.worldObj.markBlockForUpdate(storage[a].x, storage[a].y, storage[a].z);
+		}
+		this.hasPlan = false;
 	}
 	
 	private void placePlan(utilBlockInfo[] blocks) {

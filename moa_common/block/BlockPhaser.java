@@ -31,7 +31,7 @@ public class BlockPhaser extends BlockContainer{
 	}
 	
 	public void onBlockAdded(World world, int x, int y, int z) {
-		world.setBlockMetadataWithNotify(x, y, z, rotationTable[0], 0x04);
+		world.setBlockMetadataWithNotify(x, y, z, rotationTable[0], 0x02);
 	}
 	
 	@Override
@@ -44,7 +44,7 @@ public class BlockPhaser extends BlockContainer{
 			}
 			for(int a = 0; a < rotationTable.length; a++) {
 				if(meta == rotationTable[a]) {
-					world.setBlockMetadataWithNotify(x, y, z, rotationTable[(a+1)%rotationTable.length], 0x04);
+					world.setBlockMetadataWithNotify(x, y, z, rotationTable[(a+1)%rotationTable.length], 0x02);
 					System.out.println(meta);
 					break;
 				}
