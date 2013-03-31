@@ -13,7 +13,20 @@ public class TilePhaser extends TileEntity{
 	}
 	
 	public void placePlan() {
-		
+		int meta = worldObj.getBlockMetadata(xCoord, yCoord, zCoord);
+		if(meta == 1) {
+			
+		}
+	}
+	
+	private void placePlan(int xLow, int xHigh, int yLow, int yHigh, int zLow, int zHigh) {
+		for(int x = xLow; x < xHigh; x++) {
+			for(int y = yLow; y < yHigh; y++) {
+				for(int z = zLow; z < zHigh; z++) {
+					worldObj.setBl
+				}
+			}
+		}
 	}
 	
 	@Override
