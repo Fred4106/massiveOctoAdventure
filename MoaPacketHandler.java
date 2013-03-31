@@ -1,4 +1,4 @@
-package massiveOctoAdventure.code;
+package massiveOctoAdventure;
 
 import net.minecraft.network.INetworkManager;
 import net.minecraft.network.packet.Packet250CustomPayload;
