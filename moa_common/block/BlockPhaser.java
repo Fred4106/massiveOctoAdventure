@@ -34,6 +34,28 @@ public class BlockPhaser extends BlockContainer{
 		world.setBlockMetadataWithNotify(x, y, z, rotationTable[0], 0x02);
 	}
 	
+	public void onNeighborBlockChange(World par1World, int x, int y, int z, int par5) {
+		TilePhaser p = (TilePhaser) par1World.getBlockTileEntity(x, y, z);
+		if(par1World.isBlockIndirectlyGettingPowered(x, y, z)) {
+			if(p.state == false) {
+				p.state = true;
+				if(!p.alt) {
+					p.scanPlan(true);
+					p.alt = true;
+					p.removeProperArea();
+					p.placePlan(false);
+				} else {
+					p.scanPlan(false);
+					p.alt = false;
+					p.removeProperArea();
+					p.placePlan(true);
+				}
+			}
+		} else {
+			p.state = false;
+		}
+	}
+	
 	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
 		//*
@@ -50,10 +72,9 @@ public class BlockPhaser extends BlockContainer{
 				}
 			}
 			world.markBlockForRenderUpdate(x, y, z);
-			((ItemScrewdriver)player.getHeldItem().getItem()).onWrenched(world, x, y, z, player, player.getHeldItem());
 			return true;
 		}
-		//*/
+		/*
 		if(player.isSneaking()) {
 			TilePhaser entity = (TilePhaser) world.getBlockTileEntity(x, y, z);
 			if(!entity.hasPlan()) {
@@ -64,6 +85,7 @@ public class BlockPhaser extends BlockContainer{
 			}
 			return true;
 		}
+		//*/
 		return false;
 	}
 	

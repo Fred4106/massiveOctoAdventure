@@ -15,18 +15,11 @@ public class ItemScrewdriver extends Item{
 		super(id);
 		setCreativeTab(CreativeTabs.tabTools);
 		setMaxStackSize(1);
-		setMaxDamage(200);
 	}
 
 	@Override
 	public Icon getIconFromDamage(int damage) {
 		return texture;
-	}
-	
-	public void onWrenched(World world, int x, int y, int z, EntityPlayer player, ItemStack wrench) {
-		if (!player.capabilities.isCreativeMode) {
-			wrench.damageItem(1, player);
-		}
 	}
 	
 	@Override

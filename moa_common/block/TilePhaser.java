@@ -4,25 +4,26 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 
 public class TilePhaser extends TileEntity{
-	private boolean hasPlan = false;
-	private int cubeSize = 7;// the actual cube will be twice this number + 1.  The center will be the phaserBlock
+	public boolean alt = false;
+	private int cubeSize = 3;// the actual cube will be twice this number + 1.  The center will be the phaserBlock
 	private utilBlockInfo[] storage = new utilBlockInfo[(int) Math.pow(((cubeSize*2) + 1),3)];
 	private utilBlockInfo[] storageAlt = new utilBlockInfo[(int) Math.pow(((cubeSize*2) + 1),3)];
 	
+	public boolean state = false;
+	
 	public boolean hasPlan() {
-		return hasPlan;
+		return alt;
 	}
 	
 	private void sendBlockUpdate(int x, int y, int z) {
 		worldObj.notifyBlocksOfNeighborChange(x, y, z, worldObj.getBlockId(x, y, z));
 	}
 	
-	public void scanPlan() {
+	public void scanPlan(boolean doAlt) {
 		int meta = worldObj.getBlockMetadata(xCoord, yCoord, zCoord);
 		int tempX;
 		int tempY;
 		int tempZ;
-		System.out.println("Scanning");
 		if(meta == 0) {
 			for(int x = this.xCoord-cubeSize; x <= this.xCoord+cubeSize; x++) {
 				for(int z = this.zCoord-cubeSize; z <= this.zCoord+cubeSize; z++) {
@@ -30,32 +31,49 @@ public class TilePhaser extends TileEntity{
 						tempX = Math.abs(x - (this.xCoord-cubeSize));
 						tempY = Math.abs(y - (this.yCoord-(cubeSize*2+1)));
 						tempZ = Math.abs(z - (this.zCoord-cubeSize));
-						storage[tempX+tempZ*(cubeSize*2+1)+tempY*(cubeSize*2+1)*(cubeSize*2+1)] = new utilBlockInfo(x, y, z, worldObj.getBlockId(x, y, z), worldObj.getBlockMetadata(x, y, z));
+						if(!doAlt) {
+							storage[tempX+tempZ*(cubeSize*2+1)+tempY*(cubeSize*2+1)*(cubeSize*2+1)] = new utilBlockInfo(x, y, z, worldObj.getBlockId(x, y, z), worldObj.getBlockMetadata(x, y, z));
+						} else {
+							storageAlt[tempX+tempZ*(cubeSize*2+1)+tempY*(cubeSize*2+1)*(cubeSize*2+1)] = new utilBlockInfo(x, y, z, worldObj.getBlockId(x, y, z), worldObj.getBlockMetadata(x, y, z));
+						}
 					}
 				}
 			}
 		} else if(meta == 1) {
+			
+			//*
 			for(int x = this.xCoord-cubeSize; x <= this.xCoord+cubeSize; x++) {
 				for(int z = this.zCoord-cubeSize; z <= this.zCoord+cubeSize; z++) {
 					for(int y = this.yCoord+1; y <= this.yCoord+(cubeSize*2+1); y++) {
 						tempX = Math.abs(x - (this.xCoord-cubeSize));
 						tempY = Math.abs(y - (this.yCoord+1));
 						tempZ = Math.abs(z - (this.zCoord-cubeSize));
-						storage[tempX+tempZ*(cubeSize*2+1)+tempY*(cubeSize*2+1)*(cubeSize*2+1)] = new utilBlockInfo(x, y, z, worldObj.getBlockId(x, y, z), worldObj.getBlockMetadata(x, y, z));
+						if(!doAlt) {
+							storage[tempX+tempZ*(cubeSize*2+1)+tempY*(cubeSize*2+1)*(cubeSize*2+1)] = new utilBlockInfo(x, y, z, worldObj.getBlockId(x, y, z), worldObj.getBlockMetadata(x, y, z));
+						} else {
+							storageAlt[tempX+tempZ*(cubeSize*2+1)+tempY*(cubeSize*2+1)*(cubeSize*2+1)] = new utilBlockInfo(x, y, z, worldObj.getBlockId(x, y, z), worldObj.getBlockMetadata(x, y, z));
+						}
 					}
 				}
 			}
+			//*/
 		} else if(meta == 2) {
+			//*
 			for(int x = this.xCoord-cubeSize; x <= this.xCoord+cubeSize; x++) {
 				for(int y = this.yCoord-cubeSize; y <= this.yCoord+cubeSize; y++) {
 					for(int z = this.zCoord-(cubeSize*2+1); z <= this.zCoord-1; z++) {
 						tempX = Math.abs(x - (this.xCoord-cubeSize));
 						tempZ = Math.abs(z - (this.zCoord-(cubeSize*2+1)));
 						tempY = Math.abs(y - (this.yCoord-cubeSize));
-						storage[tempX+tempY*(cubeSize*2+1)+tempZ*(cubeSize*2+1)*(cubeSize*2+1)] = new utilBlockInfo(x, y, z, worldObj.getBlockId(x, y, z), worldObj.getBlockMetadata(x, y, z));
+						if(!doAlt) {
+							storage[tempX+tempY*(cubeSize*2+1)+tempZ*(cubeSize*2+1)*(cubeSize*2+1)] = new utilBlockInfo(x, y, z, worldObj.getBlockId(x, y, z), worldObj.getBlockMetadata(x, y, z));
+						} else {
+							storageAlt[tempX+tempY*(cubeSize*2+1)+tempZ*(cubeSize*2+1)*(cubeSize*2+1)] = new utilBlockInfo(x, y, z, worldObj.getBlockId(x, y, z), worldObj.getBlockMetadata(x, y, z));
+						}
 					}
 				}
 			}
+			//*/
 		} else if(meta == 3) {
 			for(int x = this.xCoord-cubeSize; x <= this.xCoord+cubeSize; x++) {
 				for(int y = this.yCoord-cubeSize; y <= this.yCoord+cubeSize; y++) {
@@ -63,7 +81,11 @@ public class TilePhaser extends TileEntity{
 						tempX = Math.abs(x - (this.xCoord-cubeSize));
 						tempZ = Math.abs(z - (this.zCoord+1));
 						tempY = Math.abs(y - (this.yCoord-cubeSize));
-						storage[tempX+tempY*(cubeSize*2+1)+tempZ*(cubeSize*2+1)*(cubeSize*2+1)] = new utilBlockInfo(x, y, z, worldObj.getBlockId(x, y, z), worldObj.getBlockMetadata(x, y, z));
+						if(!doAlt) {
+							storage[tempX+tempY*(cubeSize*2+1)+tempZ*(cubeSize*2+1)*(cubeSize*2+1)] = new utilBlockInfo(x, y, z, worldObj.getBlockId(x, y, z), worldObj.getBlockMetadata(x, y, z));
+						} else {
+							storageAlt[tempX+tempY*(cubeSize*2+1)+tempZ*(cubeSize*2+1)*(cubeSize*2+1)] = new utilBlockInfo(x, y, z, worldObj.getBlockId(x, y, z), worldObj.getBlockMetadata(x, y, z));
+						}
 					}
 				}
 			}
@@ -74,7 +96,11 @@ public class TilePhaser extends TileEntity{
 						tempY = Math.abs(y - (this.yCoord-cubeSize));
 						tempX = Math.abs(x - (this.xCoord-(cubeSize*2+1)));
 						tempZ = Math.abs(z - (this.zCoord-cubeSize));
-						storage[tempX+tempZ*(cubeSize*2+1)+tempY*(cubeSize*2+1)*(cubeSize*2+1)] = new utilBlockInfo(x, y, z, worldObj.getBlockId(x, y, z), worldObj.getBlockMetadata(x, y, z));
+						if(!doAlt) {
+							storage[tempX+tempZ*(cubeSize*2+1)+tempY*(cubeSize*2+1)*(cubeSize*2+1)] = new utilBlockInfo(x, y, z, worldObj.getBlockId(x, y, z), worldObj.getBlockMetadata(x, y, z));
+						} else {
+							storageAlt[tempX+tempZ*(cubeSize*2+1)+tempY*(cubeSize*2+1)*(cubeSize*2+1)] = new utilBlockInfo(x, y, z, worldObj.getBlockId(x, y, z), worldObj.getBlockMetadata(x, y, z));
+						}
 					}
 				}
 			}
@@ -85,12 +111,15 @@ public class TilePhaser extends TileEntity{
 						tempY = Math.abs(y - (this.yCoord-cubeSize));
 						tempX = Math.abs(x - (this.xCoord+1));
 						tempZ = Math.abs(z - (this.zCoord-cubeSize));
-						storage[tempX+tempZ*(cubeSize*2+1)+tempY*(cubeSize*2+1)*(cubeSize*2+1)] = new utilBlockInfo(x, y, z, worldObj.getBlockId(x, y, z), worldObj.getBlockMetadata(x, y, z));
+						if(!doAlt) {
+							storage[tempX+tempZ*(cubeSize*2+1)+tempY*(cubeSize*2+1)*(cubeSize*2+1)] = new utilBlockInfo(x, y, z, worldObj.getBlockId(x, y, z), worldObj.getBlockMetadata(x, y, z));
+						} else {
+							storageAlt[tempX+tempZ*(cubeSize*2+1)+tempY*(cubeSize*2+1)*(cubeSize*2+1)] = new utilBlockInfo(x, y, z, worldObj.getBlockId(x, y, z), worldObj.getBlockMetadata(x, y, z));
+						}
 					}
 				}
 			}
 		}
-		this.hasPlan = true;
 	}
 	
 	public void removeProperArea() {
@@ -188,14 +217,22 @@ public class TilePhaser extends TileEntity{
 		}
 	}
 	
-	public void placePlan() {
-		for(int a = 0; a < storage.length; a++) {
-			if(storage[a] != null) {
-				this.worldObj.setBlock(storage[a].x, storage[a].y, storage[a].z, storage[a].id, storage[a].meta, 0x02);
-				this.worldObj.markBlockForUpdate(storage[a].x, storage[a].y, storage[a].z);
+	public void placePlan(boolean doAlt) {
+		if(!doAlt) {
+			for(int a = 0; a < storage.length; a++) {
+				if(storage[a] != null) {
+					this.worldObj.setBlock(storage[a].x, storage[a].y, storage[a].z, storage[a].id, storage[a].meta, 0x02);
+					this.worldObj.markBlockForUpdate(storage[a].x, storage[a].y, storage[a].z);
+				}
+			}
+		} else {
+			for(int a = 0; a < storageAlt.length; a++) {
+				if(storageAlt[a] != null) {
+					this.worldObj.setBlock(storageAlt[a].x, storageAlt[a].y, storageAlt[a].z, storageAlt[a].id, storageAlt[a].meta, 0x02);
+					this.worldObj.markBlockForUpdate(storageAlt[a].x, storageAlt[a].y, storageAlt[a].z);
+				}
 			}
 		}
-		this.hasPlan = false;
 	}
 	
 	private int[] createIntArray(utilBlockInfo[] blocks) {
@@ -229,16 +266,18 @@ public class TilePhaser extends TileEntity{
 	@Override
 	public void writeToNBT(NBTTagCompound nbt) {
 		super.writeToNBT(nbt);
-		nbt.setBoolean("hasPlan", hasPlan);
+		nbt.setBoolean("hasPlan", alt);
 		nbt.setInteger("cubeSize", cubeSize);
 		nbt.setIntArray("storage", createIntArray(storage));
+		nbt.setIntArray("storageAlt", createIntArray(storageAlt));
 	}
 	
 	@Override
 	public void readFromNBT(NBTTagCompound nbt) {
 		super.readFromNBT(nbt);
-		hasPlan = nbt.getBoolean("hasPlan");
+		alt = nbt.getBoolean("hasPlan");
 		cubeSize = nbt.getInteger("cubeSize");
 		storage = createBlockInfo(nbt.getIntArray("storage"));
+		storageAlt = createBlockInfo(nbt.getIntArray("storageAlt"));
 	}
 }
