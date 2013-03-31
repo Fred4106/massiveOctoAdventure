@@ -5,14 +5,22 @@ import net.minecraft.tileentity.TileEntity;
 
 public class TilePhaser extends TileEntity{
 	public boolean alt = false;
-	private int cubeSize = 3;// the actual cube will be twice this number + 1.  The center will be the phaserBlock
+	private int cubeSize = 1;// the actual cube will be twice this number + 1.  The center will be the phaserBlock
 	private utilBlockInfo[] storage = new utilBlockInfo[(int) Math.pow(((cubeSize*2) + 1),3)];
 	private utilBlockInfo[] storageAlt = new utilBlockInfo[(int) Math.pow(((cubeSize*2) + 1),3)];
 	
 	public boolean state = false;
 	
+	public boolean rotateable = true;
+	
 	public boolean hasPlan() {
 		return alt;
+	}
+	
+	public TilePhaser(int size) {
+		cubeSize = size;
+		storage = new utilBlockInfo[(int) Math.pow(((cubeSize*2) + 1),3)];
+		storageAlt = new utilBlockInfo[(int) Math.pow(((cubeSize*2) + 1),3)];
 	}
 	
 	private void sendBlockUpdate(int x, int y, int z) {
@@ -20,6 +28,7 @@ public class TilePhaser extends TileEntity{
 	}
 	
 	public void scanPlan(boolean doAlt) {
+		rotateable = false;
 		int meta = worldObj.getBlockMetadata(xCoord, yCoord, zCoord);
 		int tempX;
 		int tempY;
@@ -267,6 +276,8 @@ public class TilePhaser extends TileEntity{
 	public void writeToNBT(NBTTagCompound nbt) {
 		super.writeToNBT(nbt);
 		nbt.setBoolean("hasPlan", alt);
+		nbt.setBoolean("state", state);
+		nbt.setBoolean("rotateable", rotateable);
 		nbt.setInteger("cubeSize", cubeSize);
 		nbt.setIntArray("storage", createIntArray(storage));
 		nbt.setIntArray("storageAlt", createIntArray(storageAlt));
@@ -276,6 +287,8 @@ public class TilePhaser extends TileEntity{
 	public void readFromNBT(NBTTagCompound nbt) {
 		super.readFromNBT(nbt);
 		alt = nbt.getBoolean("hasPlan");
+		state = nbt.getBoolean("state");
+		rotateable = nbt.getBoolean("state");
 		cubeSize = nbt.getInteger("cubeSize");
 		storage = createBlockInfo(nbt.getIntArray("storage"));
 		storageAlt = createBlockInfo(nbt.getIntArray("storageAlt"));

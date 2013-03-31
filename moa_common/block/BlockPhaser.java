@@ -17,11 +17,14 @@ import net.minecraftforge.common.ForgeDirection;
 
 public class BlockPhaser extends BlockContainer{
 	@SideOnly(Side.CLIENT)
-	private Icon frontTexture;
+	protected Icon frontTexture;
 	@SideOnly(Side.CLIENT)
-	private Icon otherTexture;
+	protected Icon otherTexture;
+	@SideOnly(Side.CLIENT)
+	protected Icon backTexture;
 	
 	int[] rotationTable = new int[]{1, 2, 4, 3, 5, 0};
+	int[] opRotationTable = new int[]{0, 3, 5, 2, 4, 1};
 	
 	public BlockPhaser(int id) {
 		super(id, Material.iron);
@@ -62,13 +65,14 @@ public class BlockPhaser extends BlockContainer{
 		if (player.getHeldItem() != null && player.getHeldItem().getItem() instanceof ItemScrewdriver) {
 			int meta = world.getBlockMetadata(x, y, z);
 			TilePhaser entity = (TilePhaser) world.getBlockTileEntity(x, y, z);
-			if(entity.hasPlan()) {
+			if(!entity.rotateable || world.isRemote) {
 				return false;
 			}
 			for(int a = 0; a < rotationTable.length; a++) {
 				if(meta == rotationTable[a]) {
 					world.setBlockMetadataWithNotify(x, y, z, rotationTable[(a+1)%rotationTable.length], 0x02);
 					break;
+					
 				}
 			}
 			world.markBlockForRenderUpdate(x, y, z);
@@ -89,10 +93,20 @@ public class BlockPhaser extends BlockContainer{
 		return false;
 	}
 	
+	private int getOp(int inp) {
+		if(inp%2 == 0) {
+			return inp+1;
+		} else {
+			return inp-1;
+		}
+	}
+	
 	@Override
 	public Icon getBlockTextureFromSideAndMetadata(int side, int meta) {
 		if(side == meta) {
 			return frontTexture;
+		} else if(side == getOp(meta)){
+			return backTexture;
 		} else {
 			return otherTexture;
 		}
@@ -101,13 +115,14 @@ public class BlockPhaser extends BlockContainer{
 	@SideOnly(Side.CLIENT)
 	@Override
 	public void registerIcons(IconRegister register) {
-		frontTexture = register.registerIcon("massiveoctoadventure:phaserFront");
+		backTexture = register.registerIcon("massiveoctoadventure:phaserFront");
 		otherTexture = register.registerIcon("massiveoctoadventure:phaserSide");
+		frontTexture = register.registerIcon("massiveoctoadventure:phaserBack");
 	}
 
 	@Override
 	public TileEntity createNewTileEntity(World world) {
-		return new TilePhaser();
+		return new TilePhaser(1);
 	}
 	
 }

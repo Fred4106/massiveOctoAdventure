@@ -2,7 +2,10 @@ package massiveOctoAdventure;
 
 import massiveOctoAdventure.block.BlockHandler;
 import massiveOctoAdventure.items.ItemHandler;
+import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.Property;
 
@@ -14,6 +17,7 @@ import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
+import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 
 @Mod(modid="MOA", name="MassiveOctoAdventure", version="0.0.1")
@@ -50,6 +54,11 @@ public class MassiveOctoAdventure {
 		
 		//Initialize items
 		ItemHandler.init();
+		
+		GameRegistry.addRecipe(new ItemStack(BlockHandler.moaPhaser), "XGX", "XRX", "XXX", 'X', new ItemStack(Item.ingotIron, 1), 'G', new ItemStack(Block.glass, 1), 'R', new ItemStack(Item.redstone, 1));
+		GameRegistry.addRecipe(new ItemStack(BlockHandler.moaPhaser), "XGX", "XRX", "XXX", 'X', new ItemStack(Item.ingotGold, 1), 'G', new ItemStack(Block.glass, 1), 'R', new ItemStack(BlockHandler.moaPhaser, 1));
+		GameRegistry.addRecipe(new ItemStack(BlockHandler.moaPhaser), "XGX", "XRX", "XXX", 'X', new ItemStack(Item.diamond, 1), 'G', new ItemStack(Block.glass, 1), 'R', new ItemStack(BlockHandler.moaPhaser1, 1));
+		GameRegistry.addRecipe(new ItemStack(ItemHandler.moaScrewdriver), "X", " I", 'X', new ItemStack(Item.ingotIron, 1), 'I', new ItemStack(Item.stick, 1));
 		
 		//Initializes TileEntities
 		proxy.registerTileEntities();
