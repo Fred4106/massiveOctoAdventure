@@ -11,7 +11,7 @@ public class ItemHandler {
 	
 	public static void init() {
 		moaScrewdriver = new ItemScrewdriver(moaScrewdriverId).setUnlocalizedName("moaScrewdriver");
-		GameRegistry.registerItem(moaScrewdriver, "moaPhaser");
+		GameRegistry.registerItem(moaScrewdriver, "moaScrewdriver");
 		LanguageRegistry.addName(moaScrewdriver, "Screwdriver");
 	}
 }
