@@ -1,4 +1,4 @@
-package massiveOctoAdventure;
+package massiveOctoAdventure.code;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 

@@ -1,4 +1,4 @@
-package massiveOctoAdventure.block;
+package massiveOctoAdventure.code.block;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;

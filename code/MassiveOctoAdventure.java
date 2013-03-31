@@ -1,6 +1,6 @@
-package massiveOctoAdventure;
+package massiveOctoAdventure.code;
 
-import massiveOctoAdventure.block.BlockHandler;
+import massiveOctoAdventure.code.block.BlockHandler;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.Property;
@@ -20,7 +20,7 @@ import cpw.mods.fml.common.registry.LanguageRegistry;
 public class MassiveOctoAdventure {
 	@Instance("MOA")
 	public static MassiveOctoAdventure instance;
-	@SidedProxy(serverSide="massiveOctoAdventure.CommonProxy", clientSide="massiveOctoAdventure.ClientProxy")
+	@SidedProxy(serverSide="massiveOctoAdventure.code.CommonProxy", clientSide="massiveOctoAdventure.code.ClientProxy")
 	public static CommonProxy proxy;
 	
 	@PreInit

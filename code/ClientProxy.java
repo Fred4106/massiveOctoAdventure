@@ -1,4 +1,4 @@
-package massiveOctoAdventure;
+package massiveOctoAdventure.code;
 
 public class ClientProxy extends CommonProxy {
 
