@@ -6,7 +6,7 @@ import net.minecraft.tileentity.TileEntity;
 public class TilePhaser extends TileEntity{
 	private boolean hasPlan = false;
 	private int cubeSize = 8;// the actual cube will be twice this number + 1.  The center will be the phaserBlock
-	private int[] storage = new int[(int) Math.pow(((cubeSize*2) + 1),3)];
+	private utilBlockInfo[] storage = new utilBlockInfo[(int) Math.pow(((cubeSize*2) + 1),3)];
 	
 	public boolean hasPlan() {
 		return hasPlan;
@@ -19,14 +19,20 @@ public class TilePhaser extends TileEntity{
 		}
 	}
 	
-	private void placePlan(int xLow, int xHigh, int yLow, int yHigh, int zLow, int zHigh) {
-		for(int x = xLow; x < xHigh; x++) {
-			for(int y = yLow; y < yHigh; y++) {
-				for(int z = zLow; z < zHigh; z++) {
-					worldObj.setBl
-				}
+	private void placePlan(utilBlockInfo[] blocks) {
+		
+	}
+	
+	private int[] createIntArray(utilBlockInfo[] blocks) {
+		int[] toReturn = new int[blocks.length*5];
+		int[] blocksInfo;
+		for(int a = 0; a < toReturn.length; a++) {
+			blocksInfo = blocks[a].getArray();
+			for(int b = a*5; b < a*5+5; b++) {
+				toReturn[b] = blocksInfo[b%5];
 			}
 		}
+		return toReturn;
 	}
 	
 	@Override
