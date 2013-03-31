@@ -1,5 +1,6 @@
 package massiveOctoAdventure;
 
+import massiveOctoAdventure.block.BlockHandler;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.Property;
@@ -44,6 +45,7 @@ public class MassiveOctoAdventure {
 		//Do creative tab here
 		
 		//Initialize blocks
+		BlockHandler.init();
 		
 		//Initialize items
 		
