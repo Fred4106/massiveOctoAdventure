@@ -1,6 +1,7 @@
 package massiveOctoAdventure;
 
 import massiveOctoAdventure.block.BlockHandler;
+import massiveOctoAdventure.items.ItemHandler;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.Property;
@@ -48,6 +49,7 @@ public class MassiveOctoAdventure {
 		BlockHandler.init();
 		
 		//Initialize items
+		ItemHandler.init();
 		
 		//Initializes TileEntities
 		proxy.registerTileEntities();

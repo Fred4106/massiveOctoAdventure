@@ -1,3 +1,4 @@
 git add --all
-git commit --message "Committed  on $(date)"
+read -p "Commit Message: " yn
+git commit --message "$yn"
 git push
