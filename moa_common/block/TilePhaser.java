@@ -12,12 +12,35 @@ public class TilePhaser extends TileEntity{
 		return hasPlan;
 	}
 	
-	public void ScanPlan() {
+	public void scanPlan() {
 		int meta = worldObj.getBlockMetadata(xCoord, yCoord, zCoord);
+		int tempX;
+		int tempY;
+		int tempZ;
 		for(int x = this.xCoord-cubeSize; x <= this.xCoord+cubeSize; x++) {
 			for(int z = this.zCoord-cubeSize; z <= this.zCoord+cubeSize; z++) {
-				for(int y = this.yCoord-cubeSize; y <= this.yCoord+cubeSize; y++) {
-					storage[] = new utilBlockInfo(x, y, z, worldObj.getBlockId(x, y, z), worldObj.getBlockMetadata(x, y, z));
+				for(int y = this.yCoord+1; y <= this.yCoord+(cubeSize*2+1); y++) {
+					tempX = x - this.xCoord-cubeSize;
+					tempY = y - this.yCoord+1;
+					tempZ = z - this.zCoord-cubeSize;
+					storage[y+y*z+y*z*x] = new utilBlockInfo(x, y, z, worldObj.getBlockId(x, y, z), worldObj.getBlockMetadata(x, y, z));
+				}
+			}
+		}
+	}
+	
+	public void removeProperArea() {
+		int meta = worldObj.getBlockMetadata(xCoord, yCoord, zCoord);
+		int tempX;
+		int tempY;
+		int tempZ;
+		for(int x = this.xCoord-cubeSize; x <= this.xCoord+cubeSize; x++) {
+			for(int z = this.zCoord-cubeSize; z <= this.zCoord+cubeSize; z++) {
+				for(int y = this.yCoord+1; y <= this.yCoord+(cubeSize*2+1); y++) {
+					tempX = x - this.xCoord-cubeSize;
+					tempY = y - this.yCoord+1;
+					tempZ = z - this.zCoord-cubeSize;
+					worldObj.setBlock(x, y, z, 0);
 				}
 			}
 		}
@@ -31,15 +54,15 @@ public class TilePhaser extends TileEntity{
 		this.hasPlan = false;
 	}
 	
-	private void placePlan(utilBlockInfo[] blocks) {
-		
-	}
-	
 	private int[] createIntArray(utilBlockInfo[] blocks) {
 		int[] toReturn = new int[blocks.length*5];
 		int[] blocksInfo;
-		for(int a = 0; a < toReturn.length; a++) {
-			blocksInfo = blocks[a].getArray();
+		for(int a = 0; a < blocks.length; a++) {
+			if(blocks[a] != null) {
+				blocksInfo = blocks[a].getArray();
+			} else {
+				blocksInfo = new int[]{0, 0, 0, 0, 0};
+			}
 			for(int b = a*5; b < a*5+5; b++) {
 				toReturn[b] = blocksInfo[b%5];
 			}
