@@ -17,6 +17,10 @@ public class TilePhaser extends TileEntity{
 		return alt;
 	}
 	
+	public TilePhaser() {
+	
+	}
+	
 	public TilePhaser(int size) {
 		cubeSize = size;
 		storage = new utilBlockInfo[(int) Math.pow(((cubeSize*2) + 1),3)];

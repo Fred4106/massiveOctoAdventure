@@ -56,9 +56,9 @@ public class MassiveOctoAdventure {
 		ItemHandler.init();
 		
 		GameRegistry.addRecipe(new ItemStack(BlockHandler.moaPhaser), "XGX", "XRX", "XXX", 'X', new ItemStack(Item.ingotIron, 1), 'G', new ItemStack(Block.glass, 1), 'R', new ItemStack(Item.redstone, 1));
-		GameRegistry.addRecipe(new ItemStack(BlockHandler.moaPhaser), "XGX", "XRX", "XXX", 'X', new ItemStack(Item.ingotGold, 1), 'G', new ItemStack(Block.glass, 1), 'R', new ItemStack(BlockHandler.moaPhaser, 1));
-		GameRegistry.addRecipe(new ItemStack(BlockHandler.moaPhaser), "XGX", "XRX", "XXX", 'X', new ItemStack(Item.diamond, 1), 'G', new ItemStack(Block.glass, 1), 'R', new ItemStack(BlockHandler.moaPhaser1, 1));
-		GameRegistry.addRecipe(new ItemStack(ItemHandler.moaScrewdriver), "X", " I", 'X', new ItemStack(Item.ingotIron, 1), 'I', new ItemStack(Item.stick, 1));
+		GameRegistry.addRecipe(new ItemStack(BlockHandler.moaPhaser1), "XGX", "XRX", "XXX", 'X', new ItemStack(Item.ingotGold, 1), 'G', new ItemStack(Block.glass, 1), 'R', new ItemStack(BlockHandler.moaPhaser, 1));
+		GameRegistry.addRecipe(new ItemStack(BlockHandler.moaPhaser2), "XGX", "XRX", "XXX", 'X', new ItemStack(Item.diamond, 1), 'G', new ItemStack(Block.glass, 1), 'R', new ItemStack(BlockHandler.moaPhaser1, 1));
+		GameRegistry.addRecipe(new ItemStack(ItemHandler.moaScrewdriver), "X", "I", 'X', new ItemStack(Item.ingotIron, 1), 'I', new ItemStack(Item.stick, 1));
 		
 		//Initializes TileEntities
 		proxy.registerTileEntities();
