@@ -5,7 +5,7 @@ import net.minecraft.tileentity.TileEntity;
 
 public class TilePhaser extends TileEntity{
 	private boolean hasPlan = false;
-	private int cubeSize = 1;// the actual cube will be twice this number + 1.  The center will be the phaserBlock
+	private int cubeSize = 3;// the actual cube will be twice this number + 1.  The center will be the phaserBlock
 	private utilBlockInfo[] storage = new utilBlockInfo[(int) Math.pow(((cubeSize*2) + 1),3)];
 	
 	public boolean hasPlan() {
@@ -20,10 +20,10 @@ public class TilePhaser extends TileEntity{
 		for(int x = this.xCoord-cubeSize; x <= this.xCoord+cubeSize; x++) {
 			for(int z = this.zCoord-cubeSize; z <= this.zCoord+cubeSize; z++) {
 				for(int y = this.yCoord+1; y <= this.yCoord+(cubeSize*2+1); y++) {
-					tempX = x - this.xCoord-cubeSize;
-					tempY = y - this.yCoord+1;
-					tempZ = z - this.zCoord-cubeSize;
-					storage[y+y*z+y*z*x] = new utilBlockInfo(x, y, z, worldObj.getBlockId(x, y, z), worldObj.getBlockMetadata(x, y, z));
+					tempX = Math.abs(x - this.xCoord-cubeSize);
+					tempY = Math.abs(y - this.yCoord+1);
+					tempZ = Math.abs(z - this.zCoord-cubeSize);
+					storage[tempY+tempZ*tempY+tempZ*tempY*tempX] = new utilBlockInfo(x, y, z, worldObj.getBlockId(x, y, z), worldObj.getBlockMetadata(x, y, z));
 				}
 			}
 		}
@@ -40,7 +40,7 @@ public class TilePhaser extends TileEntity{
 					tempX = x - this.xCoord-cubeSize;
 					tempY = y - this.yCoord+1;
 					tempZ = z - this.zCoord-cubeSize;
-					worldObj.setBlock(x, y, z, 0);
+					worldObj.setBlock(x, y, z, 0, 0, 0x02);
 				}
 			}
 		}

@@ -56,7 +56,12 @@ public class BlockPhaser extends BlockContainer{
 		//*/
 		if(player.isSneaking()) {
 			TilePhaser entity = (TilePhaser) world.getBlockTileEntity(x, y, z);
-			entity.removeProperArea();
+			if(!entity.hasPlan()) {
+				entity.scanPlan();
+				entity.removeProperArea();
+			} else {
+				entity.placePlan();
+			}
 			return true;
 		}
 		return false;
