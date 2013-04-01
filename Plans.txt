@@ -1,0 +1,2 @@
+Add support for tile entitys, and remembering there state.
+

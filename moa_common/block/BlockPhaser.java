@@ -47,11 +47,13 @@ public class BlockPhaser extends BlockContainer{
 					p.alt = true;
 					p.removeProperArea();
 					p.placePlan(false);
+					p.placeTE(false);
 				} else {
 					p.scanPlan(false);
 					p.alt = false;
 					p.removeProperArea();
 					p.placePlan(true);
+					p.placeTE(true);
 				}
 			}
 		} else {

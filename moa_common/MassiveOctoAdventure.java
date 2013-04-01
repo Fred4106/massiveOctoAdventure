@@ -34,7 +34,10 @@ public class MassiveOctoAdventure {
 		Configuration config = new Configuration(e.getSuggestedConfigurationFile());
 		try {
 			config.load();
-			
+			BlockHandler.moaPhaserId = config.get("Blocks", "Small Phaser", BlockHandler.moaPhaserId).getInt();
+			BlockHandler.moaPhaserId1 = config.get("Blocks", "Med Phaser", BlockHandler.moaPhaserId1).getInt();
+			BlockHandler.moaPhaserId2 = config.get("Blocks", "Large Phaser", BlockHandler.moaPhaserId2).getInt();
+			ItemHandler.moaScrewdriverId = config.get("Items", "ScrewDriver", ItemHandler.moaScrewdriverId).getInt();
 		} catch(Exception ex) {
 			
 		} finally {
