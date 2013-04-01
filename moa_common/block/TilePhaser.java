@@ -371,6 +371,21 @@ public class TilePhaser extends TileEntity{
 				}
 			}
 		}
+		if(!doAlt) {
+			for(int a = 0; a < storage.length; a++) {
+				if(storage[a] != null) {
+					this.worldObj.setBlockMetadataWithNotify(storage[a].x, storage[a].y, storage[a].z, storage[a].meta, 0x02);
+					this.worldObj.markBlockForUpdate(storage[a].x, storage[a].y, storage[a].z);
+				}
+			}
+		} else {
+			for(int a = 0; a < storageAlt.length; a++) {
+				if(storageAlt[a] != null) {
+					this.worldObj.setBlockMetadataWithNotify(storageAlt[a].x, storageAlt[a].y, storageAlt[a].z, storageAlt[a].meta, 0x02);
+					this.worldObj.markBlockForUpdate(storageAlt[a].x, storageAlt[a].y, storageAlt[a].z);
+				}
+			}
+		}
 	}
 	
 	private int[] createIntArray(utilBlockInfo[] blocks) {
