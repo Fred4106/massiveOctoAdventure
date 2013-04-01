@@ -22,6 +22,12 @@ public class ItemScrewdriver extends Item{
 		return texture;
 	}
 	
+	public boolean onItemUse(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, int par4, int par5, int par6, int par7, float par8, float par9, float par10)
+    {
+		System.out.println(par3World.getBlockMetadata(par4, par5, par6));
+        return false;
+    }
+	
 	@Override
 	public void updateIcons(IconRegister register) {
 		texture = register.registerIcon("massiveoctoadventure:screwDriver");
