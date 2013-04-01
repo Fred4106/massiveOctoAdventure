@@ -1,7 +1,7 @@
-package massiveOctoAdventure.block;
+package massiveOctoAdventure.utils;
 
 public class utilBlockInfo {
-	int x, y, z, id, meta;
+	public int x, y, z, id, meta;
 	
 	public utilBlockInfo(int x, int y, int z, int id, int meta) {
 		this.x = x;
